@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FindinG</title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="css/index.css">
+<link rel="icon" href="images/logo.ico" />
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+
+<script type="text/javascript">
+
+// Form validation code will come here.
+function valid()
+{
+
+if( document.myForm.userid.value == "" )
+{
+alert( "Please provide your User Name!" );
+document.myForm.userid.focus() ;
+return false;
+}
+
+if( document.myForm.pwd.value == "" )
+{
+alert( "Please provide your Password!" );
+document.myForm.pwd.focus() ;
+return false;
+}
+
+if( document.myForm.email.value == "" )
+{
+alert( "Please provide your Email!" );
+document.myForm.email.focus() ;
+return false;
+}
+if( document.myForm.fname.value == "" )
+{
+alert( "Please provide your First Name!" );
+document.myForm.fname.focus() ;
+return false;
+}
+
+if( document.myForm.lname.value == "" )
+{
+alert( "Please provide your Last Name!" );
+document.myForm.lname.focus() ;
+return false;
+}
+
+if( document.myForm.occ.value == "" )
+{
+alert( "Please provide your Occupation!" );
+document.myForm.occ.focus() ;
+return false;
+}
+
+return( true );
+}
+//-->
+</script>
+
+
+
+
+
+</head>
+<body style="background-color:#FFAE00">
+<nav class="navbar navbar-default">
+<div class="container-fluid"> 
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+<a class="navbar-brand">FindinG</a> </div>
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav">
+<li><a href="index.html">SignIn<span class="sr-only">(current)</span></a> </li>
+<li><a href="register.html">SignUp</a> </li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">About<span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a>Developed Bye :- </a></li>
+<li><a>KeTan Dutt </a></li>
+<li><a>B.tech PIET (IT)</a></li>
+<li role="separator" class="divider"></li>
+<li><a>Minor Project</a> </li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<header>
+
+<h1 align="center" style="font-size:60px">FindinG</h1>
+<form name="myForm" onsubmit="return valid()" action="stureg.jsp" method="post">
+<div class="jumbotron2" align="center">
+<div align="center">
+<h1>Student Registeration Form</h1>
+<div class="container3">
+<div class="row">
+<div class="col-xs-12"> 
+<div class="form-group" align="left">
+
+<br><input type="text" class="form-control" name="user" placeholder="UserName">
+<span class="help-block" style="display: none;">Please enter your UserName.</span>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="container1">
+<div class="row">
+<div class="col-xs-12">
+<div class="form-group" align="left">
+
+
+<h3 align="left">Personel Details</h3>
+
+<br><input type="text" class="form-control" name="age" placeholder="Age">
+<span class="help-block" style="display: none;">Please enter your Age.</span>
+
+<br><input type="text" class="form-control" name="fname" placeholder="Father's Name">
+<span class="help-block" style="display: none;">Please enter your Father's Name.</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container2">
+<div class="row">
+<div class="col-xs-12"> 
+<div class="form-group" align="left">
+<br><br><br>
+
+<br><input type="text" class="form-control" name="mnum" placeholder="Mobile Number">
+<span class="help-block" style="display: none;">Please enter your Mobile Number.</span>
+
+<br><input type="text" class="form-control" name="mname" placeholder="Mother's Name">
+<span class="help-block" style="display: none;">Please enter your Mother's Name.</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container3">
+<div class="row">
+<div class="col-xs-12"> 
+<div class="form-group" align="left">
+
+<br><input type="text" class="form-control" name="addr" placeholder="Address">
+<span class="help-block" style="display: none;">Please enter your Address.</span>
+</div>
+</div>
+</div>
+</div>
+<div align="center">
+____________________<br><br></div>
+
+<div class="container1">
+<div class="row">
+<div class="col-xs-12"> 
+
+<h3 align="left">Educational Details</h3><br>
+
+<div class="form-group" align="left">
+
+<input type="text" class="form-control" id="cid" name="cid" placeholder="College Name">
+<span class="help-block" style="display: none;">Please enter your College's Name.</span>
+<br>
+<input type="password" class="form-control" id="brch" name="brch" placeholder="Branch">
+<span class="help-block" style="display: none;">Please enter your Branch.</span>
+
+<br><input type="text" class="form-control"  name="10thb" placeholder="10th from (Board)">
+<span class="help-block" style="display: none;">Please enter your 10th Board Name.</span>
+
+<br><input type="text" class="form-control"  name="12thb" placeholder="12th from (Board)">
+<span class="help-block" style="display: none;">Please enter your 12th Board Name.</span>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="container2">
+<div class="row">
+<div class="col-xs-12"> 
+<br><br><br><br>
+
+
+
+<div class="form-group" align="left">
+
+
+<input type="text" class="form-control" id="uid" name="uid" placeholder="University">
+<span class="help-block" style="display: none;">Please enter your University.</span>
+<br>
+<input type="password" class="form-control" id="sem" name="sem" placeholder="Semester">
+<span class="help-block" style="display: none;">Please enter your Semester.</span>
+
+<br><input type="text" class="form-control"  name="10thp" placeholder="10th %age">
+<span class="help-block" style="display: none;">Please enter your 10th Percentage.</span>
+
+<br><input type="text" class="form-control"  name="12thp" placeholder="12th %age">
+<span class="help-block" style="display: none;">Please enter your 12th Percentage.</span>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="container3">
+<div class="row">
+<div class="col-xs-12"> 
+<div class="form-group" align="left">
+</div>
+</div>
+</div>
+</div>
+<div align="center">
+____________________<br><br></div>
+
+
+<div class="container1">
+<div class="row">
+<div class="col-xs-12"> 
+
+<h3 align="left">Technical Details</h3><br>
+
+<div class="form-group" align="left">
+<h4 align="left">Major Technology</h4><br>
+<input type="text" class="form-control" id="t1" name="t1" placeholder="Technology">
+<span class="help-block" style="display: none;">Please enter your Technology's Name.</span>
+<br>
+<input type="password" class="form-control" id="ds1" name="ds1" placeholder="Duration Start">
+<span class="help-block" style="display: none;">Please enter your Training Duration.</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container2">
+<div class="row">
+<div class="col-xs-12"> 
+<br><br><br><br>
+
+
+
+<div class="form-group" align="left">
+<br><br><br>
+
+<input type="text" class="form-control" id="c1" name="c1" placeholder="Company">
+<span class="help-block" style="display: none;">Please enter Company's Name.</span>
+<br>
+<input type="text" class="form-control" id="de1" name="de1" placeholder="Duration End">
+<span class="help-block" style="display: none;">Please enter your Training End Date.</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container1">
+<div class="row">
+<div class="col-xs-12"> 
+
+<div class="form-group" align="left">
+<h4 align="left">Minor Technology</h4><br>
+<input type="text" class="form-control" id="t2" name="t2" placeholder="Technology">
+<span class="help-block" style="display: none;">Please enter your Technology's Name.</span>
+<br>
+<input type="password" class="form-control" id="ds2" name="ds2" placeholder="Duration Start">
+<span class="help-block" style="display: none;">Please enter your Training Duration.</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container2">
+<div class="row">
+<div class="col-xs-12"> 
+<div class="form-group" align="left">
+<br><br><br>
+
+<input type="text" class="form-control" id="c2" name="c2" placeholder="Company">
+<span class="help-block" style="display: none;">Please enter Company's Name.</span>
+<br>
+<input type="text" class="form-control" id="de2" name="de2" placeholder="Duration End">
+<span class="help-block" style="display: none;">Please enter your Training End Date.</span>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="container3">
+<div class="row">
+<div class="col-xs-12"> 
+<div class="form-group" align="left">
+</div>
+</div>
+</div>
+</div>
+
+<div align="center">
+____________________<br><br>
+</div>
+<div class="container1">
+<div class="row">
+<div class="col-xs-12"> 
+
+<h3 align="left">Job Preference</h3><br>
+
+<div class="form-group" align="left">
+
+<input type="text" class="form-control" id="jid" name="jid" placeholder="Job Post">
+<span class="help-block" style="display: none;">Please enter your Job Post Preference.</span>
+<br>
+<input type="password" class="form-control" id="jt" name="jt" placeholder="Company Type">
+<span class="help-block" style="display: none;">Please enter your Job Company Type.</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container2">
+<div class="row">
+<div class="col-xs-12"> 
+<br><br><br><br>
+
+
+
+<div class="form-group" align="left">
+
+
+<input type="text" class="form-control" id="ja" name="ja" placeholder="Job Location(State)">
+<span class="help-block" style="display: none;">Please enter your Job Area Preference.</span>
+<br>
+<input type="password" class="form-control" id="js" name="js" placeholder="Expected Salary">
+<span class="help-block" style="display: none;">Please enter your Job Salary</span>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="container3">
+<div class="row">
+<div class="col-xs-12"> 
+<div class="form-group" align="left">
+</div>
+</div>
+</div>
+</div>
+<div align="center">
+____________________<br><br></div>
+
+
+
+<button type="submit" id="fee2dbackSubmit" class="btn btn-primary btn-lg" style=" margin-top: 10px;">Register</button><br>
+</div></div>
+
+</form>
+
+
+</header>
+<script src="js/jquery-1.11.3.min.js"></script> 
+<script src="js/bootstrap.js"></script>
+</body>
+</html>

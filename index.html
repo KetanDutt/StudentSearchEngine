@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FindinG</title>
+<link rel="icon" href="images/logo.ico" />
+<link rel="stylesheet" href="css/index.css">
+<script type="text/javascript">
+function valid()
+{
+
+if( document.myForm.usr.value == "" )
+{
+alert( "Please provide your User Name!" );
+document.myForm.usr.focus() ;
+return false;
+}
+
+if( document.myForm.pwd.value == "" )
+{
+alert( "Please provide your Password!" );
+document.myForm.pwd.focus() ;
+return false;
+}
+
+return( true );
+}
+</script>
+</head>
+<body style="background-color:#FFAE00">
+
+
+<nav class="navbar navbar-default">
+<div class="container-fluid"> 
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+<a class="navbar-brand">FindinG</a> </div>
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav">
+<li class="active"><a href="index.html">SignIn<span class="sr-only">(current)</span></a> </li>
+<li><a href="register.html">SignUp</a> </li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">About<span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a>Developed Bye :- </a></li>
+<li><a>KeTan Dutt </a></li>
+<li><a>B.tech PIET (IT)</a></li>
+<li role="separator" class="divider"></li>
+<li><a>Minor Project</a> </li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<script src="js/jquery-1.11.3.min.js"></script> 
+<script src="js/bootstrap.js"></script>
+
+<script type="text/javascript" language="javascript">
+      var aax_size='728x90';
+      var aax_pubname = 'ketandutt-21';
+      var aax_src='302';
+    </script>
+    <script type="text/javascript" language="javascript" src="http://c.amazon-adsystem.com/aax2/assoc.js"></script>
+
+
+
+<header>
+<div align="center">
+<div class="jumbotron">
+<div class="container">
+<div class="row">
+<div class="col-xs-12"> 
+<h1 class="text-center">FindinG</h1>
+<h3 class="text-center">SighIN</h3><br>
+<form name="myForm" onsubmit="return valid()" action="login.jsp" method="post">
+<div class="form-group" align="left">
+<input type="text" class="form-control" name="usr" placeholder="User Name">
+<span class="help-block" style="display: none;">Please enter your UserName.</span>
+<br>
+<input type="password" class="form-control" name="pwd" placeholder="Pass Word">
+<span class="help-block" style="display: none;">Please enter your Password.</span></div>
+
+________________________________________<br><br>
+<button type="submit" id="feedbackSubmit" class="btn btn-primary btn-lg" style=" margin-top: 10px;">LogIn</button><br>
+</form>
+
+<div align="center"> 
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</header>
+
+
+</body>
+</html>
