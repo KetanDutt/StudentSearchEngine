@@ -1,105 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FindinG</title>
-<link rel="icon" href="images/logo.ico" />
-<link rel="stylesheet" href="css/index.css">
-<script type="text/javascript">
-function valid()
-{
-
-if( document.myForm.usr.value == "" )
-{
-alert( "Please provide your User Name!" );
-document.myForm.usr.focus() ;
-return false;
-}
-
-if( document.myForm.pwd.value == "" )
-{
-alert( "Please provide your Password!" );
-document.myForm.pwd.focus() ;
-return false;
-}
-
-return( true );
-}
-</script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FindinG - Modern Student & Company Search Platform connecting talent with opportunities">
+  <title>FindinG - Sign In</title>
+  <link rel="icon" href="images/logo.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background-color:#FFAE00">
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="index.html">FindinG</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Sign In</a></li>
+          <li class="nav-item"><a class="nav-link" href="register.html">Sign Up</a></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">About</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><span class="dropdown-item-text fw-bold">Developed By:</span></li>
+              <li><span class="dropdown-item-text">Ketan Dutt</span></li>
+              <li><span class="dropdown-item-text text-muted">B.Tech PIET (IT)</span></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><span class="dropdown-item-text">v2.0 - Production Ready</span></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 140px);">
+    <div class="w-100" style="max-width: 480px;">
+      <div id="alertContainer"></div>
+      <div class="jumbotron card-modern">
+        <div class="text-center mb-4">
+          <div style="font-size:3rem; margin-bottom:0.5rem;">🎯</div>
+          <h1 class="text-center mb-1">FindinG</h1>
+          <p class="text-muted mb-0">Welcome back! Sign in to continue</p>
+          <div class="mt-3">
+            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2">Secure • Fast • Modern</span>
+          </div>
+        </div>
 
-<nav class="navbar navbar-default">
-<div class="container-fluid"> 
-<div class="navbar-header">
-<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-<a class="navbar-brand">FindinG</a> </div>
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-<ul class="nav navbar-nav">
-<li class="active"><a href="index.html">SignIn<span class="sr-only">(current)</span></a> </li>
-<li><a href="register.html">SignUp</a> </li>
-</ul>
-<ul class="nav navbar-nav navbar-right">
-<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">About<span class="caret"></span></a>
-<ul class="dropdown-menu">
-<li><a>Developed Bye :- </a></li>
-<li><a>KeTan Dutt </a></li>
-<li><a>B.tech PIET (IT)</a></li>
-<li role="separator" class="divider"></li>
-<li><a>Minor Project</a> </li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</nav>
+        <form name="myForm" onsubmit="return valid()" action="login.jsp" method="post" novalidate>
+          <div class="mb-3">
+            <label for="usr" class="form-label">Username</label>
+            <div class="input-group">
+              <span class="input-group-text">👤</span>
+              <input type="text" class="form-control" id="usr" name="usr" placeholder="Enter your username" required autocomplete="username">
+            </div>
+          </div>
 
-<script src="js/jquery-1.11.3.min.js"></script> 
-<script src="js/bootstrap.js"></script>
+          <div class="mb-4">
+            <label for="pwd" class="form-label">Password</label>
+            <div class="input-group">
+              <span class="input-group-text">🔒</span>
+              <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Enter your password" required autocomplete="current-password">
+            </div>
+            <div class="form-text">Password must be at least 8 characters with uppercase, lowercase & number</div>
+          </div>
 
-<script type="text/javascript" language="javascript">
-      var aax_size='728x90';
-      var aax_pubname = 'ketandutt-21';
-      var aax_src='302';
-    </script>
-    <script type="text/javascript" language="javascript" src="http://c.amazon-adsystem.com/aax2/assoc.js"></script>
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <span>Sign In</span> →
+            </button>
+          </div>
 
+          <div class="text-center mt-4">
+            <p class="text-muted small mb-2">Don't have an account?</p>
+            <a href="register.html" class="btn btn-outline-secondary w-100">Create Account</a>
+          </div>
 
+          <div class="mt-4 p-3 bg-light rounded-3">
+            <h6 class="small fw-bold text-uppercase text-muted mb-2">Demo Accounts</h6>
+            <div class="row small">
+              <div class="col-6"><strong>Student:</strong><br>user: student1<br>pass: Student@123</div>
+              <div class="col-6"><strong>Company:</strong><br>user: company1<br>pass: Company@123</div>
+            </div>
+          </div>
+        </form>
+      </div>
 
-<header>
-<div align="center">
-<div class="jumbotron">
-<div class="container">
-<div class="row">
-<div class="col-xs-12"> 
-<h1 class="text-center">FindinG</h1>
-<h3 class="text-center">SighIN</h3><br>
-<form name="myForm" onsubmit="return valid()" action="login.jsp" method="post">
-<div class="form-group" align="left">
-<input type="text" class="form-control" name="usr" placeholder="User Name">
-<span class="help-block" style="display: none;">Please enter your UserName.</span>
-<br>
-<input type="password" class="form-control" name="pwd" placeholder="Pass Word">
-<span class="help-block" style="display: none;">Please enter your Password.</span></div>
+      <div class="text-center mt-3">
+        <p class="small text-white-50">© 2026 FindinG • Production Ready v2.0 • Secure & Scalable</p>
+      </div>
+    </div>
+  </div>
 
-________________________________________<br><br>
-<button type="submit" id="feedbackSubmit" class="btn btn-primary btn-lg" style=" margin-top: 10px;">LogIn</button><br>
-</form>
-
-<div align="center"> 
-</div>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-
-</header>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Check for error params
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    if (error === 'session_expired') {
+      const container = document.getElementById('alertContainer');
+      container.innerHTML = '<div class="alert alert-warning">Session expired. Please login again.</div>';
+    }
+    if (error === 'invalid') {
+      const container = document.getElementById('alertContainer');
+      container.innerHTML = '<div class="alert alert-danger">Invalid username or password.</div>';
+    }
+  </script>
 </body>
 </html>

@@ -1,0 +1,60 @@
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.tmp
+.mvn/
+# Keep mvnw.cmd and mvnw for one-click Windows run
+# mvnw
+# mvnw.cmd
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Environment
+.env
+config.properties
+*.properties.local
+
+# Database
+*.sql.dump
+*.db
+
+# Logs
+logs/
+*.log
+
+# Dependency
+node_modules/
+
+# Build
+dist/
+build/
+out/
+
+# Temp
+tmp/
+temp/
+
+# Tools - ignore auto-downloaded content but keep README
+tools/*
+!tools/README.md

@@ -1,349 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FindinG</title>
-
-<!-- Bootstrap -->
-<link rel="stylesheet" href="css/index.css">
-<link rel="icon" href="images/logo.ico" />
-
-
-<script type="text/javascript">
-
-// Form validation code will come here.
-function valid()
-{
-
-if( document.myForm.userid.value == "" )
-{
-alert( "Please provide your User Name!" );
-document.myForm.userid.focus() ;
-return false;
-}
-
-if( document.myForm.pwd.value == "" )
-{
-alert( "Please provide your Password!" );
-document.myForm.pwd.focus() ;
-return false;
-}
-
-if( document.myForm.email.value == "" )
-{
-alert( "Please provide your Email!" );
-document.myForm.email.focus() ;
-return false;
-}
-if( document.myForm.fname.value == "" )
-{
-alert( "Please provide your First Name!" );
-document.myForm.fname.focus() ;
-return false;
-}
-
-if( document.myForm.lname.value == "" )
-{
-alert( "Please provide your Last Name!" );
-document.myForm.lname.focus() ;
-return false;
-}
-
-if( document.myForm.occ.value == "" )
-{
-alert( "Please provide your Occupation!" );
-document.myForm.occ.focus() ;
-return false;
-}
-
-return( true );
-}
-//-->
-</script>
-
-
-
-
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FindinG - Company Registration</title>
+  <link rel="icon" href="images/logo.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background-color:#FFAE00">
-<nav class="navbar navbar-default">
-<div class="container-fluid"> 
-<div class="navbar-header">
-<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-<a class="navbar-brand">FindinG</a> </div>
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-<ul class="nav navbar-nav">
-<li><a href="index.html">SignIn<span class="sr-only">(current)</span></a> </li>
-<li><a href="register.html">SignUp</a> </li>
-</ul>
-<ul class="nav navbar-nav navbar-right">
-<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">About<span class="caret"></span></a>
-<ul class="dropdown-menu">
-<li><a>Developed Bye :- </a></li>
-<li><a>KeTan Dutt </a></li>
-<li><a>B.tech PIET (IT)</a></li>
-<li role="separator" class="divider"></li>
-<li><a>Minor Project</a> </li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</nav>
-<header>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="index.html">FindinG</a>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="hr.html">Dashboard</a>
+        <a class="nav-link" href="logout.jsp">Logout</a>
+      </div>
+    </div>
+  </nav>
 
-<h1 align="center" style="font-size:60px">FindinG</h1>
-<form name="myForm" onsubmit="return valid()" action="hrreg.jsp" method="post">
-<div class="jumbotron2" align="center">
-<div align="center">
-<h1>Company Registeration Form</h1>
-<div class="container3">
-<div class="row">
-<div class="col-xs-12"> 
-<div class="form-group" align="left">
+  <div class="container py-4">
+    <div class="text-center mb-4">
+      <h1 class="display-6 fw-bold text-white">Company Registration</h1>
+      <p class="text-white-50">Showcase your company to attract top student talent</p>
+    </div>
 
-<br><input type="text" class="form-control" name="user" placeholder="UserName">
-<span class="help-block" style="display: none;">Please enter your UserName.</span>
+    <form name="myForm" onsubmit="return validateCompany()" action="hrreg.jsp" method="post">
+      <div class="jumbotron2 card-modern">
+        <div id="alertContainer"></div>
 
-</div>
-</div>
-</div>
-</div>
+        <div class="mb-4">
+          <h5 class="section-title">🏢 Company Details</h5>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Username *</label>
+              <input type="text" class="form-control" name="user" placeholder="Login username" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Company Name *</label>
+              <input type="text" class="form-control" name="cid" placeholder="e.g. Google" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Authorization / CIN</label>
+              <input type="text" class="form-control" name="auth" placeholder="Company auth code">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Established Year *</label>
+              <input type="number" class="form-control" name="yr" placeholder="1998" min="1800" max="2026" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Total Employees *</label>
+              <input type="text" class="form-control" name="emp" placeholder="10000" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Highest Salary *</label>
+              <input type="text" class="form-control" name="hsal" placeholder="50 LPA" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Branches in India</label>
+              <input type="text" class="form-control" name="brch" placeholder="10">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Head Office Address *</label>
+              <input type="text" class="form-control" name="addr" placeholder="Full address" required>
+            </div>
+          </div>
+        </div>
 
-<div class="container1">
-<div class="row">
-<div class="col-xs-12">
-<div class="form-group" align="left">
+        <hr class="section-divider">
 
+        <div class="mb-4">
+          <h5 class="section-title">📦 Product Portfolio</h5>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="card bg-light border-0 p-3">
+                <h6 class="fw-bold">Major Product</h6>
+                <input type="text" class="form-control mb-2" name="t1" placeholder="Product Objective">
+                <input type="text" class="form-control mb-2" name="c1" placeholder="Client Company">
+                <div class="row g-2">
+                  <div class="col-6"><input type="text" class="form-control" name="y1" placeholder="Created Year"></div>
+                  <div class="col-6"><input type="text" class="form-control" name="a1" placeholder="Value"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card bg-light border-0 p-3">
+                <h6 class="fw-bold">Minor Product</h6>
+                <input type="text" class="form-control mb-2" name="t2" placeholder="Product Objective">
+                <input type="text" class="form-control mb-2" name="c2" placeholder="Client Company">
+                <div class="row g-2">
+                  <div class="col-6"><input type="text" class="form-control" name="y2" placeholder="Created Year"></div>
+                  <div class="col-6"><input type="text" class="form-control" name="a2" placeholder="Value"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-<h3 align="left">Company Details</h3>
+        <hr class="section-divider">
 
-<br><input type="text" class="form-control" name="cid" placeholder="Company Name">
-<span class="help-block" style="display: none;">Please enter your Company's Name.</span>
+        <div class="mb-4">
+          <h5 class="section-title">💼 Job Openings</h5>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="card bg-light border-0 p-3">
+                <h6 class="fw-bold">Major Vacancy</h6>
+                <input type="text" class="form-control mb-2" name="jid" placeholder="Job Post e.g. SDE">
+                <input type="text" class="form-control mb-2" name="jt" placeholder="Job Type e.g. Full Time">
+                <div class="row g-2">
+                  <div class="col-6"><input type="text" class="form-control" name="ja" placeholder="Location State"></div>
+                  <div class="col-6"><input type="text" class="form-control" name="js" placeholder="Salary"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card bg-light border-0 p-3">
+                <h6 class="fw-bold">Minor Vacancy</h6>
+                <input type="text" class="form-control mb-2" name="jid2" placeholder="Job Post e.g. Intern">
+                <input type="text" class="form-control mb-2" name="jt2" placeholder="Job Type e.g. Internship">
+                <div class="row g-2">
+                  <div class="col-6"><input type="text" class="form-control" name="ja2" placeholder="Location State"></div>
+                  <div class="col-6"><input type="text" class="form-control" name="js2" placeholder="Salary"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-<br><input type="text" class="form-control" name="yr" placeholder="Years Established">
-<span class="help-block" style="display: none;">Please enter your Father's Name.</span>
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary btn-lg px-5">Register Company & Continue →</button>
+          <div class="form-text mt-2">Your company will be visible to students after verification</div>
+        </div>
+      </div>
+    </form>
+  </div>
 
-<br><input type="text" class="form-control" name="hsal" placeholder="Heighest Salary Offered">
-<span class="help-block" style="display: none;">Please enter your Father's Name.</span>
-</div>
-</div>
-</div>
-</div>
-
-<div class="container2">
-<div class="row">
-<div class="col-xs-12"> 
-<div class="form-group" align="left">
-<br><br><br>
-
-<br><input type="text" class="form-control" name="auth" placeholder="Authorization">
-<span class="help-block" style="display: none;">Please enter your Mobile Number.</span>
-
-<br><input type="text" class="form-control" name="emp" placeholder="Total Number Of Employees">
-<span class="help-block" style="display: none;">Please enter your Mother's Name.</span>
-
-<br><input type="text" class="form-control" name="brch" placeholder="Number of Branches(India)">
-<span class="help-block" style="display: none;">Please enter your Father's Name.</span>
-
-</div>
-</div>
-</div>
-</div>
-
-<div class="container3">
-<div class="row">
-<div class="col-xs-12"> 
-<div class="form-group" align="left">
-
-<br><input type="text" class="form-control" name="addr" placeholder="HeadOffice Address">
-<span class="help-block" style="display: none;">Please enter your Address.</span>
-</div>
-</div>
-</div>
-</div>
-<div align="center">
-____________________<br><br></div>
-
-<div class="container1">
-<div class="row">
-<div class="col-xs-12"> 
-<h3 align="left">Product Details</h3><br>
-<div class="form-group" align="left">
-
-<h4 align="left">Major Product</h4><br>
-<input type="text" class="form-control" id="t1" name="t1" placeholder="Objective">
-<span class="help-block" style="display: none;">Please enter your Technology's Name.</span>
-<br>
-<input type="password" class="form-control" id="y1" name="y1" placeholder="Created in(Year)">
-<span class="help-block" style="display: none;">Please enter your Training Duration.</span>
-
-</div>
-</div>
-</div>
-</div>
-<div class="container2">
-<div class="row">
-<div class="col-xs-12"> 
-<br><br><br><br>
-<div class="form-group" align="left">
-<br><br><br>
-
-<input type="text" class="form-control" id="c1" name="c1" placeholder="Created For(Company)">
-<span class="help-block" style="display: none;">Please enter Company's Name.</span>
-<br>
-<input type="text" class="form-control" id="a1" name="a1" placeholder="Value(Ammount)">
-<span class="help-block" style="display: none;">Please enter your Training End Date.</span>
-</div>
-</div>
-</div>
-</div>
-
-<div class="container1">
-<div class="row">
-<div class="col-xs-12"> 
-
-<div class="form-group" align="left">
-<h4 align="left">Minor Product</h4><br>
-<input type="text" class="form-control" id="t2" name="t2" placeholder="Objective">
-<span class="help-block" style="display: none;">Please enter your Technology's Name.</span>
-<br>
-<input type="password" class="form-control" id="y2" name="y2" placeholder="Created in(Year)">
-<span class="help-block" style="display: none;">Please enter your Training Duration.</span>
-</div>
-</div>
-</div>
-</div>
-
-<div class="container2">
-<div class="row">
-<div class="col-xs-12"> 
-<div class="form-group" align="left">
-<br><br><br>
-
-<input type="text" class="form-control" id="c2" name="c2" placeholder="Created For(Company)">
-<span class="help-block" style="display: none;">Please enter Company's Name.</span>
-<br>
-<input type="text" class="form-control" id="a2" name="a2" placeholder="Value(Ammount)">
-<span class="help-block" style="display: none;">Please enter your Training End Date.</span>
-</div>
-</div>
-</div>
-</div>
-
-
-<div class="container3">
-<div class="row">
-<div class="col-xs-12"> 
-<div class="form-group" align="left">
-</div>
-</div>
-</div>
-</div>
-
-<div align="center">
-____________________<br><br>
-</div>
-<div class="container1">
-<div class="row">
-<div class="col-xs-12"> 
-
-<h3 align="left">Job Offered</h3><br>
-
-<div class="form-group" align="left">
-<h4 align="left">Major Job Vacancy</h4><br>
-<input type="text" class="form-control" id="jid" name="jid" placeholder="Job Post">
-<span class="help-block" style="display: none;">Please enter your Job Post Preference.</span>
-<br>
-<input type="password" class="form-control" id="jt" name="jt" placeholder="Job Type">
-<span class="help-block" style="display: none;">Please enter your Job Company Type.</span>
-</div>
-</div>
-</div>
-</div>
-
-<div class="container2">
-<div class="row">
-<div class="col-xs-12"> 
-<br><br><br><br><br><br><br>
-
-
-
-<div class="form-group" align="left">
-
-
-<input type="text" class="form-control" id="ja" name="ja" placeholder="Job Location(State)">
-<span class="help-block" style="display: none;">Please enter your Job Area Preference.</span>
-<br>
-<input type="password" class="form-control" id="js" name="js" placeholder="Salary Offered">
-<span class="help-block" style="display: none;">Please enter your Job Salary</span>
-</div>
-</div>
-</div>
-</div>
-<div class="container1">
-<div class="row">
-<div class="col-xs-12"> 
-
-
-
-<div class="form-group" align="left">
-<h4 align="left">Minor Job Vacancy</h4><br>
-<input type="text" class="form-control" id="jid2" name="jid2" placeholder="Job Post">
-<span class="help-block" style="display: none;">Please enter your Job Post Preference.</span>
-<br>
-<input type="password" class="form-control" id="jt2" name="jt2" placeholder="Job Type">
-<span class="help-block" style="display: none;">Please enter your Job Company Type.</span>
-</div>
-</div>
-</div>
-</div>
-
-<div class="container2">
-<div class="row">
-<div class="col-xs-12"> 
-<br><br><br>
-
-
-
-<div class="form-group" align="left">
-
-
-<input type="text" class="form-control" id="ja2" name="ja2" placeholder="Job Location(State)">
-<span class="help-block" style="display: none;">Please enter your Job Area Preference.</span>
-<br>
-<input type="password" class="form-control" id="js2" name="js2" placeholder="Salary Offered">
-<span class="help-block" style="display: none;">Please enter your Job Salary</span>
-</div>
-</div>
-</div>
-</div>
-
-
-<div class="container3">
-<div class="row">
-<div class="col-xs-12"> 
-<div class="form-group" align="left">
-</div>
-</div>
-</div>
-</div>
-<div align="center">
-____________________<br><br></div>
-
-
-
-<button type="submit" id="fee2dbackSubmit" class="btn btn-primary btn-lg" style=" margin-top: 10px;">Register</button><br>
-</div></div>
-
-</form>
-
-
-</header>
-<script src="js/jquery-1.11.3.min.js"></script> 
-<script src="js/bootstrap.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
