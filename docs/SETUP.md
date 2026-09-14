@@ -7,7 +7,87 @@
 - Tomcat 9+ (or Docker)
 - Git
 
-## Quick Start with Docker (Recommended)
+## 🪟 Windows - One Click (NEW! - Easiest)
+
+### Option 1: Double-Click `run.bat` (CMD)
+
+```bat
+# Just double-click run.bat in Explorer
+# Or in CMD:
+run.bat
+```
+
+**What it does:**
+1. Checks Java - If missing, opens download page
+2. Checks Docker - If found, uses `docker-compose up --build -d` (MySQL+Tomcat auto)
+3. Checks Maven - Uses `mvnw.cmd` wrapper or downloads to `tools/maven`
+4. Checks MySQL - Tests root/toor connection, or starts MySQL via Docker
+5. Builds: `mvn clean package`
+6. Downloads Tomcat 9 to `tools/tomcat` if missing
+7. Initializes DB: `sql/init.sql`
+8. Deploys war and starts Tomcat on 8080
+9. Opens http://localhost:8080
+
+### Option 2: PowerShell with Auto-Install (Most Automated)
+
+```powershell
+# Right-click PowerShell -> Run as Administrator for auto-install
+
+# Auto-install dependencies + use Docker:
+powershell -ExecutionPolicy Bypass -File run.ps1 -InstallDeps -UseDocker
+
+# Just run:
+powershell -ExecutionPolicy Bypass -File run.ps1
+
+# Custom port:
+powershell -ExecutionPolicy Bypass -File run.ps1 -Port 8081
+
+# Flags:
+# -InstallDeps : Auto-install Java, Maven, MySQL, Docker via Chocolatey/Winget
+# -UseDocker   : Force Docker deployment
+# -SkipBuild   : Skip Maven build
+# -Port        : Custom port (default 8080)
+```
+
+### Option 3: Setup Dependencies First
+
+```bat
+# Run as Administrator:
+setup.bat
+
+# This installs via Chocolatey:
+# - Java 11 (Temurin)
+# - Maven
+# - MySQL
+# - Docker Desktop
+
+# Then:
+run.bat
+```
+
+### Windows Scripts Reference
+
+| Script | Purpose |
+|--------|---------|
+| `run.bat` | Main one-click runner (CMD) - checks all deps, builds, runs |
+| `run.ps1` | PowerShell runner - more robust, auto-install support |
+| `setup.bat` | Installs dependencies via Chocolatey |
+| `run-webapp.bat` | Runs only webapp (Tomcat, no Docker) |
+| `start.bat` | Alias to run.bat |
+| `scripts/windows/check-env.bat` | Checks Java, Maven, MySQL, Docker, Tomcat, build |
+| `scripts/windows/start-tomcat.bat` | Starts Tomcat only (assumes built) |
+| `mvnw.cmd` | Maven wrapper - auto-downloads Maven if missing |
+
+### Windows Troubleshooting
+
+- **Java not found**: Script opens https://adoptium.net - Install Java 11, or `choco install temurin11 -y`
+- **Maven not found**: Script auto-downloads to `tools/maven`, or `choco install maven -y`
+- **MySQL not found**: Easiest - use Docker (script auto-starts MySQL container), or `choco install mysql -y`
+- **Port 8080 in use**: `netstat -ano | findstr :8080` then `taskkill /PID <pid> /F`, or `run.ps1 -Port 8081`
+- **Tomcat fails**: Check `tools/tomcat/logs/catalina.out`, ensure Java 11+
+- **Docker**: If installed, restart computer after install, start Docker Desktop
+
+## Quick Start with Docker (Recommended - All Platforms)
 
 ```bash
 # Clone

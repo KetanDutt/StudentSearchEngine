@@ -7,8 +7,9 @@ target/
 *.log
 *.tmp
 .mvn/
-mvnw
-mvnw.cmd
+# Keep mvnw.cmd and mvnw for one-click Windows run
+# mvnw
+# mvnw.cmd
 
 # IDE
 .idea/
@@ -53,3 +54,7 @@ out/
 # Temp
 tmp/
 temp/
+
+# Tools - ignore auto-downloaded content but keep README
+tools/*
+!tools/README.md

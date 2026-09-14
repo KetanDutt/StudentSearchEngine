@@ -68,7 +68,51 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed architecture.
 
 ## 🚀 Quick Start
 
-### Docker (Recommended - 1 command)
+### 🪟 Windows - One Click (NEW!)
+
+**Super Easy - Just Double Click!**
+
+```bat
+# Option 1: CMD - Double click or run:
+run.bat
+
+# Option 2: PowerShell - Auto-installs dependencies:
+powershell -ExecutionPolicy Bypass -File run.ps1 -InstallDeps -UseDocker
+
+# Option 3: Setup dependencies first (admin):
+setup.bat
+run.bat
+```
+
+**What `run.bat` / `run.ps1` does automatically:**
+1. ✅ Checks Java 11+ (downloads if missing, or opens download page)
+2. ✅ Checks Docker - If found, uses `docker-compose up` (EASIEST - MySQL+Tomcat auto)
+3. ✅ Checks Maven - Uses wrapper `mvnw.cmd` or downloads to `tools/maven`
+4. ✅ Checks MySQL - Tests connection, or starts MySQL via Docker container
+5. ✅ Builds project: `mvn clean package`
+6. ✅ Downloads Tomcat 9 to `tools/tomcat` if not found
+7. ✅ Initializes DB with demo data: `sql/init.sql`
+8. ✅ Deploys war and starts Tomcat on port 8080
+9. ✅ Opens browser to http://localhost:8080
+
+**Available Windows Scripts:**
+- `run.bat` - Main one-click runner (CMD)
+- `run.ps1` - PowerShell runner with auto-install via Chocolatey/Winget
+- `setup.bat` - Installs Java, Maven, MySQL, Docker via Chocolatey
+- `run-webapp.bat` - Runs only webapp (Tomcat, no Docker)
+- `start.bat` - Alias to run.bat
+- `scripts/windows/check-env.bat` - Check environment
+- `scripts/windows/start-tomcat.bat` - Start Tomcat only
+
+**PowerShell Flags:**
+```powershell
+run.ps1 -InstallDeps      # Auto-install missing deps
+run.ps1 -UseDocker        # Force Docker deployment
+run.ps1 -SkipBuild        # Skip Maven build
+run.ps1 -Port 8081        # Use custom port
+```
+
+### 🐳 Docker (Recommended - 1 command - All Platforms)
 
 ```bash
 git clone https://github.com/KetanDutt/StudentSearchEngine.git
@@ -82,7 +126,17 @@ docker-compose up --build -d
 #   Company: company1 / Company@123
 ```
 
-### Manual
+### 🐧 Linux / Mac - One Click
+
+```bash
+chmod +x run.sh
+./run.sh
+
+# Or Docker:
+docker-compose up --build -d
+```
+
+### 🔧 Manual (All Platforms)
 
 ```bash
 # 1. Database
@@ -101,7 +155,7 @@ $TOMCAT/bin/startup.sh
 # http://localhost:8080/
 ```
 
-See [docs/SETUP.md](docs/SETUP.md) for detailed setup.
+See [docs/SETUP.md](docs/SETUP.md) and [scripts/README.md](scripts/README.md) for detailed setup.
 
 ## 🔐 Security
 

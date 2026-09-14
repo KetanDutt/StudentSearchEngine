@@ -27,8 +27,10 @@ StudentSearchEngine/
 │   ├── util/
 │   │   ├── DBUtil.java    # HikariCP connection pooling
 │   │   └── SecurityUtil.java # BCrypt, validation, sanitization
-│   └── filter/
-│       └── AuthFilter.java # Session auth filter
+│   ├── filter/
+│   │   └── AuthFilter.java # Session auth filter
+│   ├── AppInitializer.java # Startup hook
+│   └── EmbeddedRunner.java # One-click webapp runner
 ├── src/main/resources/
 │   └── config.properties  # DB config with env overrides
 ├── WEB-INF/
@@ -36,10 +38,24 @@ StudentSearchEngine/
 │   └── jsp/prelude.jspf   # Security headers, JSTL
 ├── sql/
 │   └── init.sql           # Optimized schema with indexes, FKs, demo data
-├── docs/                  # Documentation
+├── docs/                  # Documentation (8 files)
 ├── error/
 │   ├── 404.html
 │   └── 500.html
+├── scripts/
+│   ├── README.md
+│   └── windows/
+│       ├── check-env.bat
+│       ├── install-dependencies.bat
+│       └── start-tomcat.bat
+├── tools/                 # Auto-created (Tomcat, Maven)
+├── run.bat                # Windows one-click CMD runner
+├── run.ps1                # PowerShell runner with auto-install
+├── setup.bat              # Windows dependency installer
+├── run-webapp.bat         # WebApp only runner (no Docker)
+├── start.bat              # Alias to run.bat
+├── run.sh                 # Linux/Mac one-click runner
+├── mvnw.cmd               # Maven wrapper
 ├── *.html                 # Modernized UI pages
 ├── *.jsp                  # Secured backend with PreparedStatements
 ├── pom.xml                # Maven build
