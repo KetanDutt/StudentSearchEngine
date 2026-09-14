@@ -1,149 +1,170 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="com.finding.util.DBUtil"%>
+<%@ page import="com.finding.util.SecurityUtil"%>
+<%
+    String sessionUser = (String) session.getAttribute("user");
+    if (sessionUser == null) {
+        response.sendRedirect("index.html?error=session_expired");
+        return;
+    }
+
+    String searchRaw = request.getParameter("search");
+    String search = SecurityUtil.sanitizeSearch(searchRaw != null ? searchRaw : "");
+    if (search.isEmpty()) {
+        search = "";
+    }
+
+    // Pagination
+    int pageNum = 1;
+    int pageSize = 20;
+    try {
+        String p = request.getParameter("page");
+        if (p != null) pageNum = Math.max(1, Integer.parseInt(p));
+    } catch (Exception ignored) {}
+    int offset = (pageNum - 1) * pageSize;
+
+    // For LIKE queries, we need to escape % and _
+    String likePattern = "%" + search.replace("%", "\\%").replace("_", "\\_") + "%";
+%>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Search</title>
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="icon" href="images/logo.ico" />
+<title>FindinG - Student Search Results</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background-color:#FFAE00">
-<nav class="navbar navbar-default">
-<div class="container-fluid"> 
-<div class="navbar-header">
-<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-<a class="navbar-brand">FindinG</a> </div>
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-<ul class="nav navbar-nav">
-<li><a href="index.html">SignIn<span class="sr-only">(current)</span></a> </li>
-<li><a href="register.html">SignUp</a> </li>
-</ul>
-<ul class="nav navbar-nav navbar-right">
-<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">About<span class="caret"></span></a>
-<ul class="dropdown-menu">
-<li><a>Developed Bye :- </a></li>
-<li><a>KeTan Dutt </a></li>
-<li><a>B.tech PIET (IT)</a></li>
-<li role="separator" class="divider"></li>
-<li><a>For DRDO</a> </li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand" href="index.html">FindinG</a>
+    <div class="navbar-nav ms-auto">
+      <a class="nav-link" href="hr.html">Dashboard</a>
+      <a class="nav-link" href="logout.jsp">Logout</a>
+    </div>
+  </div>
 </nav>
 
-<header>
-<div align="center">
-<div class="jumbotron2">
-<div class="container2">
-<h1 class="text-center" style=" font-size:50px">FindinG</h1>
-<p class="text-center">Job Search</p> <br><br>
+<div class="container py-4">
+  <div class="jumbotron2 card-modern">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+      <div>
+        <h2 class="h3 fw-bold mb-1">🎓 Student Search Results</h2>
+        <p class="text-muted mb-0 small">Showing results for: <strong><%= SecurityUtil.escapeHtml(search) %></strong> | Page <%= pageNum %></p>
+      </div>
+      <form action="stusearch.jsp" method="post" class="d-flex gap-2">
+        <input type="text" name="search" class="form-control" placeholder="New search..." value="<%= SecurityUtil.escapeHtml(search) %>">
+        <button class="btn btn-primary">Search</button>
+      </form>
+    </div>
 
-<table class="table table-hover table-bordered" >
-<thead>
-<tr>
-<th>Name</th>
-<th>Mobile</th>
-<th>College</th>
-<th>University</th>
-<th>Branch</th>
-<th>Major Training</th>
-<th>Company</th>
-<th>Minor Training</th>
-<th>Company</th>
-<th>Job in</th>
-<th>Location</th>
-<th>Salary</th>
-</tr>
-</thead>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Mobile</th>
+            <th>College</th>
+            <th>University</th>
+            <th>Branch</th>
+            <th>Major Tech</th>
+            <th>Company</th>
+            <th>Minor Tech</th>
+            <th>Company</th>
+            <th>Desired Role</th>
+            <th>Location</th>
+            <th>Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+<%
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    int count = 0;
+    try {
+        con = DBUtil.getConnection();
+        // Secure search with PreparedStatement - prevents SQL injection
+        // Using parameterized LIKE queries
+        String sql = "SELECT user, mnum, cid, uid, brch, t1, c1, t2, c2, jid, ja, js " +
+                     "FROM student WHERE " +
+                     "user LIKE ? OR age LIKE ? OR mnum LIKE ? OR fname LIKE ? OR mname LIKE ? OR addr LIKE ? OR " +
+                     "cid LIKE ? OR uid LIKE ? OR brch LIKE ? OR sem LIKE ? OR `10thb` LIKE ? OR `10thp` LIKE ? OR `12thb` LIKE ? OR `12thp` LIKE ? OR " +
+                     "t1 LIKE ? OR t2 LIKE ? OR c1 LIKE ? OR c2 LIKE ? OR ds1 LIKE ? OR ds2 LIKE ? OR de1 LIKE ? OR de2 LIKE ? OR " +
+                     "jid LIKE ? OR ja LIKE ? OR jt LIKE ? OR js LIKE ? " +
+                     "ORDER BY user LIMIT ? OFFSET ?";
 
+        ps = con.prepareStatement(sql);
+        int idx = 1;
+        for (int i = 0; i < 26; i++) {
+            ps.setString(idx++, likePattern);
+        }
+        ps.setInt(idx++, pageSize);
+        ps.setInt(idx++, offset);
 
-<%@ page import="java.sql.*"%>
-<%@ page import="javax.sql.*"%>
-<%try{
-String search=request.getParameter("search"); 
-session.putValue("usr",search);
-String user;
-String mnum; 
-String cid; 
-String uid;
-String brch;
-String sem;
-String t1; 
-String c1;
-String t2;
-String c2;
-String jid;
-String ja;
-String jt;
-String js;
-Class.forName("com.mysql.jdbc.Driver"); 
-java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","toor"); 
-Statement st= con.createStatement(); 
-ResultSet rs=st.executeQuery("select * from student where user like '%"+search+"%' or age like '%"+search+"%'"
-+ " or mnum like '%"+search+"%' or fname like '%"+search+"%' or mname like '%"+search+"%' or addr like "
-+ "'%"+search+"%' or cid like '%"+search+"%' or uid like '%"+search+"%' or brch like '%"+search+"%' or sem like "
-+ "'%"+search+"%' or 10thb like '%"+search+"%' or 10thp like '%"+search+"%' or 12thb like '%"+search+"%' or 12thp "
-+ "like '%"+search+"%' or t1 like '%"+search+"%' or t2 like '%"+search+"%' or c1 like '%"+search+"%' or c2 like "
-+ "'%"+search+"%' or ds1 like '%"+search+"%' or ds2 like '%"+search+"%' or de1 like '%"+search+"%' or de2 like '%"+search+"%'"
-+ " or jid like '%"+search+"%' or ja like '%"+search+"%' or jt like '%"+search+"%' or js like '%"+search+"%'"); 
-
-while(rs.next()){ 
-
-user  = rs.getString(1);
-mnum = rs.getString(3);
-cid = rs.getString(7);
-uid = rs.getString(8);
-brch  = rs.getString(9);
-sem = rs.getString(10);
-t1 = rs.getString(15);
-t2 = rs.getString(19);
-c1  = rs.getString(16);
-c2 = rs.getString(20);
-jid = rs.getString(23);
-ja = rs.getString(24);
-jt = rs.getString(25);
-js = rs.getString(26);
-
-%><td><%
-out.print(user);
-%></td><td><%
-out.print(mnum);
-%></td><td><%
-out.print(cid);
-%></td><td><%
-out.print(uid);
-%></td><td><%
-out.print(brch);
-%></td><td><%
-out.print(t1);
-%></td><td><%
-out.print(c1);
-%></td><td><%
-out.print(t2);
-%></td><td><%
-out.print(c2);
-%></td><td><%
-out.print(jid);
-%></td><td><%
-out.print(ja);
-%></td><td><%
-out.print(js);
-%></td></tr><%
-
-}
-}
-catch(Exception e){ out.println(e.getMessage()); }
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            count++;
 %>
-</table>
+          <tr>
+            <td><span class="badge bg-primary"><%= SecurityUtil.escapeHtml(rs.getString("user")) %></span></td>
+            <td><%= SecurityUtil.escapeHtml(rs.getString("mnum")) %></td>
+            <td><%= SecurityUtil.escapeHtml(rs.getString("cid")) %></td>
+            <td><%= SecurityUtil.escapeHtml(rs.getString("uid")) %></td>
+            <td><span class="badge bg-secondary"><%= SecurityUtil.escapeHtml(rs.getString("brch")) %></span></td>
+            <td><%= SecurityUtil.escapeHtml(rs.getString("t1")) %></td>
+            <td class="small text-muted"><%= SecurityUtil.escapeHtml(rs.getString("c1")) %></td>
+            <td><%= SecurityUtil.escapeHtml(rs.getString("t2")) %></td>
+            <td class="small text-muted"><%= SecurityUtil.escapeHtml(rs.getString("c2")) %></td>
+            <td class="fw-bold"><%= SecurityUtil.escapeHtml(rs.getString("jid")) %></td>
+            <td><%= SecurityUtil.escapeHtml(rs.getString("ja")) %></td>
+            <td><span class="badge bg-success"><%= SecurityUtil.escapeHtml(rs.getString("js")) %></span></td>
+          </tr>
+<%
+        }
+        if (count == 0) {
+%>
+          <tr><td colspan="12" class="text-center py-5 text-muted">No students found for "<%= SecurityUtil.escapeHtml(search) %>". Try different keywords.</td></tr>
+<%
+        }
+    } catch (SQLException e) {
+        System.err.println("Search error: " + e.getMessage());
+%>
+          <tr><td colspan="12" class="text-center text-danger">Database error: <%= SecurityUtil.escapeHtml(e.getMessage()) %></td></tr>
+<%
+    } finally {
+        try { if (rs != null) rs.close(); } catch (Exception ignored) {}
+        try { if (ps != null) ps.close(); } catch (Exception ignored) {}
+        try { if (con != null) con.close(); } catch (Exception ignored) {}
+    }
+%>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <div class="small text-muted">Found <%= count %> results on this page</div>
+      <div class="btn-group">
+        <% if (pageNum > 1) { %>
+          <a href="stusearch.jsp?search=<%= java.net.URLEncoder.encode(search, "UTF-8") %>&page=<%= pageNum-1 %>" class="btn btn-outline-secondary btn-sm">← Previous</a>
+        <% } %>
+        <span class="btn btn-secondary btn-sm disabled">Page <%= pageNum %></span>
+        <% if (count == pageSize) { %>
+          <a href="stusearch.jsp?search=<%= java.net.URLEncoder.encode(search, "UTF-8") %>&page=<%= pageNum+1 %>" class="btn btn-outline-secondary btn-sm">Next →</a>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="mt-4 p-3 bg-light rounded">
+      <h6 class="small fw-bold">💡 Search Tips</h6>
+      <p class="small text-muted mb-0">Search across: username, age, mobile, names, address, college, university, branch, semester, boards, percentages, technologies, companies, duration, job role, location, type, salary. Results are paginated for performance.</p>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-</header>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

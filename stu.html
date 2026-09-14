@@ -1,63 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Search</title>
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="icon" href="images/logo.ico" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FindinG - Student Dashboard</title>
+  <link rel="icon" href="images/logo.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background-color:#FFAE00">
-<nav class="navbar navbar-default">
-<div class="container-fluid"> 
-<div class="navbar-header">
-<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-<a class="navbar-brand">FindinG</a> </div>
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-<ul class="nav navbar-nav">
-<li><a href="index.html">SignIn<span class="sr-only">(current)</span></a> </li>
-<li><a href="register.html">SignUp</a> </li>
-</ul>
-<ul class="nav navbar-nav navbar-right">
-<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">About<span class="caret"></span></a>
-<ul class="dropdown-menu">
-<li><a>Developed Bye :- </a></li>
-<li><a>KeTan Dutt </a></li>
-<li><a>B.tech PIET (IT)</a></li>
-<li role="separator" class="divider"></li>
-<li><a>Minor Project</a> </li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</nav>
-<header>
-<div align="center">
-<div class="jumbotron2">
-<div class="container">
-<div class="row">
-<div class="col-xs-12">
-<h1 class="text-center" style=" font-size:50px">FindinG</h1>
-<p class="text-center">Job Search</p>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="index.html">FindinG</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link active" href="stu.html">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="stureg.html">My Profile</a></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="logout.jsp">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-<form role="search" name="myForm" onsubmit="return valid()" action="stusearch.jsp" method="post">
-<div class="form-group">
-<input name="search" type="text" class="form-control" placeholder="Search">
-</div>
-<div align="center">
-<button type="submit" class="btn btn-default">Submit</button>
-</div>
-</form>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="text-center mb-5">
+          <h1 class="display-5 fw-bold text-white">Welcome, Student! 🎓</h1>
+          <p class="lead text-white-50">Search for your dream companies and opportunities</p>
+        </div>
 
-</div>
-</div>
-</div>
-</div>
-</div>
-</header>
-<script src="js/jquery-1.11.3.min.js"></script> 
-<script src="js/bootstrap.js"></script>
+        <div class="jumbotron2 card-modern">
+          <div class="text-center mb-4">
+            <div style="font-size: 3rem;">🔍</div>
+            <h2 class="h3 fw-bold">Company Search</h2>
+            <p class="text-muted">Find companies by name, location, technology, job type and more</p>
+          </div>
+
+          <form role="search" name="myForm" action="hrsearch.jsp" method="post" class="search-container">
+            <div class="input-group input-group-lg">
+              <span class="input-group-text">🔍</span>
+              <input name="search" type="text" class="form-control" placeholder="Search companies, e.g. Google, Java, Bangalore, Product Manager..." required>
+              <button type="submit" class="btn btn-primary px-4">Search</button>
+            </div>
+            <div class="form-text text-center mt-2">Try: "Java", "Bangalore", "5000 employees", "Product Manager"</div>
+          </form>
+
+          <div class="row g-3 mt-5">
+            <div class="col-md-4">
+              <div class="card h-100 border-0 bg-light">
+                <div class="card-body text-center">
+                  <div style="font-size:2rem;">💼</div>
+                  <h6 class="fw-bold mt-2">Job Search</h6>
+                  <p class="small text-muted mb-0">Find jobs by role, location, salary</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100 border-0 bg-light">
+                <div class="card-body text-center">
+                  <div style="font-size:2rem;">🏢</div>
+                  <h6 class="fw-bold mt-2">Company Info</h6>
+                  <p class="small text-muted mb-0">Employees, salary, products</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100 border-0 bg-light">
+                <div class="card-body text-center">
+                  <div style="font-size:2rem;">🚀</div>
+                  <h6 class="fw-bold mt-2">Fast Results</h6>
+                  <p class="small text-muted mb-0">Indexed search, pagination</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4 mt-4">
+          <div class="col-md-6">
+            <div class="card-modern p-4">
+              <h5 class="fw-bold">📋 Quick Tips</h5>
+              <ul class="small text-muted">
+                <li>Complete your profile for better visibility</li>
+                <li>Use specific keywords for accurate results</li>
+                <li>Check company products & job vacancies</li>
+                <li>Save interesting companies for later</li>
+              </ul>
+              <a href="stureg.html" class="btn btn-sm btn-outline-primary">Update Profile</a>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-modern p-4">
+              <h5 class="fw-bold">🔒 Your Privacy</h5>
+              <p class="small text-muted">Your data is protected with enterprise-grade security. We use BCrypt hashing, prepared statements, and secure sessions.</p>
+              <div class="d-flex gap-2 flex-wrap">
+                <span class="badge bg-success">Encrypted</span>
+                <span class="badge bg-primary">Secure</span>
+                <span class="badge bg-info">Private</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="mb-0 small">© 2026 FindinG • Student Dashboard • Production Ready v2.0</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

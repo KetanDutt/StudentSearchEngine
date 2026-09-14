@@ -1,0 +1,55 @@
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.tmp
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Environment
+.env
+config.properties
+*.properties.local
+
+# Database
+*.sql.dump
+*.db
+
+# Logs
+logs/
+*.log
+
+# Dependency
+node_modules/
+
+# Build
+dist/
+build/
+out/
+
+# Temp
+tmp/
+temp/
